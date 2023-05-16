@@ -2,3 +2,4 @@ espn_api
 requests
 pandas
 numpy
+openpyxl
