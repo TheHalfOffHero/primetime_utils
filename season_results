@@ -31,8 +31,7 @@ for i in range(18):
 	num_matchups = len(matchups) #check the number of matchups for the week
 	for x in range(min(5, num_matchups)):
 		home_team = matchups[x].home_team
-		home_team = str(home_team).replace("Team","")
-		home_team = str(home_team).replace("(","")
+		home_team = str(home_team).replace("Team(","")
 		home_team = str(home_team).replace(")","")
 		home_teams.append(home_team)
 	
@@ -40,10 +39,8 @@ for i in range(18):
 		home_scores.append(home_score)
 	
 		away_team = matchups[x].away_team
-		away_team = str(away_team).replace("Team","")
-		away_team = str(away_team).replace("(","")
+		away_team = str(away_team).replace("Team(","")
 		away_team = str(away_team).replace(")","")
-		away_teams.append(away_team)
 		away_teams.append(away_team)
 	
 		away_score = matchups[x].away_score
