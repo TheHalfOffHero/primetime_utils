@@ -105,7 +105,7 @@ def team_rosters (year):
 	
 	#List of teams
 	teams = league.teams
-	print(teams)
+	#print(teams)
 	
 	roster_data = {}
 
