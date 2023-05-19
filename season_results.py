@@ -85,15 +85,15 @@ def print_matchup_data(year):
 	workbook = writer.book
 	worksheet = workbook[f"{year} Data"]
 	for column in worksheet.columns:
-		max_length = 0
+		min_length = 0
 		column = [cell for cell in column]
 		for cell in column:
 			try:
-				if len(str(cell.value))> max_length:
-					max_length = len(cell.value)
+				if len(str(cell.value))> min_length:
+					min_length = len(cell.value)
 			except:
 				pass
-		adj_width = (max_length + 2)*1.2
+		adj_width = (min_length + 2)*1.1
 		worksheet.column_dimensions[column[0].column_letter].width = adj_width
 
 		
@@ -105,14 +105,18 @@ def team_rosters (year):
 	
 	#List of teams
 	teams = league.teams
-	#print(teams)
+	# print(teams)
 	
 	roster_data = {}
 
 	for team in teams:
 		roster = team.roster
-		roster_data[team] = roster
+		roster = [str(player).replace("Player(","").replace(")", "") for player in roster]
+		roster_data[str(team).replace("Team(", "").replace(")", "")] = roster
+
 	
+	#teams = [str(team).replace("Team(","").replace(")","") for team in teams]
+
 	# # Convert the data to a pandas DataFrame
 	df = pd.DataFrame.from_dict(roster_data, orient = 'index')
 	
@@ -125,15 +129,60 @@ def team_rosters (year):
 	workbook = writer.book
 	worksheet = workbook[f"{year} Rosters"]
 	for column in worksheet.columns:
-		max_length = 0
+		min_length = 0
 		column = [cell for cell in column]
 		for cell in column:
 			try:
-				if len(str(cell.value))> max_length:
-					max_length = len(cell.value)
+				if len(str(cell.value))> min_length:
+					min_length = len(cell.value)
 			except:
 				pass
-		adj_width = (max_length + 2)*1.2
+		adj_width = (min_length + 2)*1.1
+		worksheet.column_dimensions[column[0].column_letter].width = adj_width
+
+
+#Print of yearly draft results
+def draft_picks(year):
+
+	#Get League for certain year
+	league = League(league_id=172798, year=year, espn_s2=espn_s2Val, swid=espn_swidVal)
+	
+	# Get Draft pick data as a list
+	draft_data = league.draft
+	
+	players = []
+	teams = []
+	total_points = []
+	
+	for pick in draft_data:
+		pick_str = str(pick) #convert to a string
+		pick_data = pick_str.split(",") #Split the pick string by a comma
+		player = pick_data[0].strip().replace("Pick(","") #assign first column as player
+		team = pick_data[1].strip().replace("Team(","").replace(")","") #assign second column as team
+		players.append(player)
+		teams.append(team)
+
+	data = {'Player': players, 'Team': teams}
+	
+	# # Convert the data to a pandas DataFrame
+	df = pd.DataFrame(data)
+
+	# #Convert the DataFrame to an Excel file
+	df.to_excel(writer, sheet_name = f"{year} Draft", index=False)
+	
+	#Resize columns to fit the data		
+	workbook = writer.book
+	worksheet = workbook[f"{year} Draft"]
+	for column in worksheet.columns:
+		min_length = 0
+		column = [cell for cell in column]
+		for cell in column:
+			try:
+				if len(str(cell.value))> min_length:
+					min_length = len(cell.value)
+			except:
+				pass
+		adj_width = (min_length + 2)*1.1
 		worksheet.column_dimensions[column[0].column_letter].width = adj_width
 		
 		
@@ -142,4 +191,5 @@ with pd.ExcelWriter('primetime_data.xlsx', engine = 'openpyxl') as writer:
 	for year in range(2015,2024):
 		print_matchup_data(year)
 		team_rosters(year)
-	
+		draft_picks(year)
+
