@@ -27,7 +27,7 @@ def getLeague(year):
     print(f'Unable to import League info for the year {year}')
 
 '''
-#Variables
+Variables
   home_team: Team
   home_score: int
   away_team: Team
@@ -35,6 +35,10 @@ def getLeague(year):
   is_playoff: bool
   matchup_type: str
 '''
-
-league = getLeague(2022)
-print(league.scoreboard(1))
+def getMatchupWeek(league, week):
+  try:
+    scoreboard = league.scoreboard(week)
+    return scoreboard
+  except:
+    print(f'Unable to get scoreboard for week {week}')
+  
