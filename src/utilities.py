@@ -41,4 +41,17 @@ def getMatchupWeek(league, week):
     return scoreboard
   except:
     print(f'Unable to get scoreboard for week {week}')
-  
+
+''' 
+    Gets all the scoreboards for the year and returns a list of all weeks
+    There are 17 weeks in our fantasy season and we start at week 1
+'''
+def getMatchupYear(league):
+  allMatchups = []
+  for week in range(1, 17):
+    currentMatchup = getMatchupWeek(league, week)
+    allMatchups.append(currentMatchup)
+  return allMatchups
+
+#league = getLeague(2022)
+#getMatchupYear(league)
