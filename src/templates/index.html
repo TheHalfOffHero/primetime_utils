@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Home Team</th>
+          <th scope="col">Home Score</th>
+          <th scope="col">Away Team</th>
+          <th scope="col">Away Score</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for game in matchupData %}
+        <tr>
+          {% if  game.home_score > game.away_score %}
+            <td style="background-color: #ACD1AF" >{{ game.home_team.team_name }}</td>
+            <td style="background-color: #ACD1AF" >{{ game.home_score }}</td>
+            <td>{{ game.away_team.team_name }}</td>
+            <td>{{ game.away_score }}</td>
+          {% else %}
+            <td>{{ game.home_team.team_name }}</td>
+            <td>{{ game.home_score }}</td>
+            <td  style="background-color: #ACD1AF" >{{ game.away_team.team_name }}</td>
+            <td  style="background-color: #ACD1AF" >{{ game.away_score }}</td>
+          {% endif %}
+          </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
+{% endblock body %}
