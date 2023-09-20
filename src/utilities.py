@@ -53,5 +53,6 @@ def getMatchupYear(league):
     allMatchups.append(currentMatchup)
   return allMatchups
 
-league = getLeague(2022)
+league = getLeague(2021)
 getMatchupWeek(league, 1)
+print("done")
