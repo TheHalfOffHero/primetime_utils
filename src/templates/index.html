@@ -10,11 +10,11 @@
     <form class="form-inline" action="{{ url_for('index') }}" method="POST">
       <div class="form-group">
         <label for="matchupYear">Year: </label>
-        <input type="number" class="form-control" name="matchupYear" id="matchupYear" aria-describedby="emailHelp" placeholder="2015-2023">
+        <input type="number" class="form-control" name="matchupYear" id="matchupYear" aria-describedby="emailHelp" placeholder="2015-2023" min="2015" max="2023">
       </div>
       <div class="form-group">
         <label for="matchupWeek">Week:</label>
-        <input type="number" class="form-control" name="matchupWeek" id="matchupWeek" placeholder="1-16">
+        <input type="number" class="form-control" name="matchupWeek" id="matchupWeek" placeholder="1-16" min="1" max="16">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -33,7 +33,7 @@
       </thead>
       <tbody>
       {% for game in matchupData %}
-        <tr id="{{loop.index}}">
+        <tr id="{{loop.index}}" class="toggler">
           {% if  game.home_score > game.away_score %}
             <td style="background-color: #ACD1AF" >{{ game.home_team.team_name }}</td>
             <td style="background-color: #ACD1AF" >{{ game.home_score }}</td>
@@ -53,7 +53,7 @@
 
   <div class="container">
     {% for game in matchupData %}
-    <div class="row" id="roster_matchup_{{loop.index}}">
+    <div class="row toggled" id="roster_matchup_{{loop.index}}" style="display: none">
       <div class="col">
         <table class="table table-sm">
           <thead>
