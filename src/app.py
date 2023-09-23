@@ -15,7 +15,6 @@ def index():
     
     league = getLeague(matchupYear)
     matchupData = getMatchupWeek(league, matchupWeek)
-    
     return render_template('index.html', matchupData=matchupData)
   else:
     return render_template('index.html', matchupData=matchupData)

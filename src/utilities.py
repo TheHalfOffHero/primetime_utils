@@ -42,6 +42,14 @@ def getMatchupWeek(league, week):
   except:
     print(f'Unable to get scoreboard for week {week}')
 
+def getBoxScoresWeek(league, week):
+  try:
+    boxScores = league.box_scores(week)
+    return boxScores
+  except:
+    print(f'unable to get box scores for week {week}')
+
+
 ''' 
     Gets all the scoreboards for the year and returns a list of all weeks
     There are 17 weeks in our fantasy season and we start at week 1
@@ -53,6 +61,6 @@ def getMatchupYear(league):
     allMatchups.append(currentMatchup)
   return allMatchups
 
-league = getLeague(2021)
-getMatchupWeek(league, 1)
+league = getLeague(2017)
+matchups = getMatchupWeek(league, 1)
 print("done")

@@ -4,6 +4,8 @@
 {% endblock head %}
 
 {% block body %}
+
+
   <div class="container">
     <form class="form-inline" action="{{ url_for('index') }}" method="POST">
       <div class="form-group">
@@ -17,8 +19,10 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
+
+
   <div class="container">
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Home Team</th>
@@ -29,7 +33,7 @@
       </thead>
       <tbody>
       {% for game in matchupData %}
-        <tr>
+        <tr id="{{loop.index}}">
           {% if  game.home_score > game.away_score %}
             <td style="background-color: #ACD1AF" >{{ game.home_team.team_name }}</td>
             <td style="background-color: #ACD1AF" >{{ game.home_score }}</td>
@@ -46,4 +50,50 @@
     </tbody>
     </table>
   </div>
+
+  <div class="container">
+    {% for game in matchupData %}
+    <div class="row" id="roster_matchup_{{loop.index}}">
+      <div class="col">
+        <table class="table table-sm">
+          <thead>
+            <th>{{ game.home_team.team_name }}</th>
+          </thead>
+          <thead>
+            <th scope="col">Player</th>
+            <th scope="col">Position</th>
+          </thead>
+          <tbody>
+            {% for player in game.home_team.roster %}
+            <tr>
+              <td> {{ player.name }} </td>
+              <td> {{ player.position }} </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col">
+        <table class="table table-sm">
+          <thead>
+            <th>{{ game.away_team.team_name }}</th>
+          </thead>
+          <thead>
+            <th>Player</th>
+            <th>Position</th>
+          </thead>
+          <tbody>
+            {% for player in game.away_team.roster %}
+            <tr>
+              <td> {{ player.name }} </td>
+              <td> {{ player.position }} </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
 {% endblock body %}
