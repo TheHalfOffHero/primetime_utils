@@ -60,7 +60,3 @@ def getMatchupYear(league):
     currentMatchup = getMatchupWeek(league, week)
     allMatchups.append(currentMatchup)
   return allMatchups
-
-league = getLeague(2017)
-matchups = getMatchupWeek(league, 1)
-print("done")
